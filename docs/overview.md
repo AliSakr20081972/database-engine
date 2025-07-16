@@ -1,15 +1,20 @@
 # Project Overview
 
 This repository contains a minimal educational database engine written in C.
-The goal is to provide a small code base that illustrates fundamental
-components of a storage engine such as fixed-size pages and a very simple SQL
-parser.
+The code illustrates fundamental components of a storage engine such as
+fixed-size pages and a tiny SQL tokenizer. Additional demonstration modules
+include a small query planner and executor, a basic thread pool and a simple
+user authentication system.
 
 ## Directory Structure
 
 - `src/` - Source files for the demo program.
   - `storage/` - Page abstraction for reading and writing fixed-size buffers.
   - `parser/` - Tiny tokenizer for a subset of SQL.
+  - `planner/` - Very small query planner producing simple plan structures.
+  - `executor/` - Executes query plans over in-memory tables.
+  - `thread/` - Minimal thread pool implementation.
+  - `security/` - Simple user account handling.
 - `include/` - Public headers.
 - `Makefile` - Build script for the `db` demo executable.
 
@@ -22,5 +27,6 @@ make
 ./db
 ```
 
-The program will print the contents of a demo page and then list the tokens
-produced from a small SQL query.
+The program prints the contents of a demo page, tokenizes a query and then
+shows simple planning, execution, thread pool usage and authentication
+examples.
