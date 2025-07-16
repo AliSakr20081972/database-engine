@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "storage/page.h"
+#include "parser/parser.h"
 
 int main(void)
 {
@@ -17,6 +18,19 @@ int main(void)
     printf("Page ID: %llu\n", (unsigned long long)page_get_id(&page));
     printf("Dirty: %d\n", page_is_dirty(&page));
     printf("Data: %s\n", (char*)buffer);
+
+    /* Demo: simple SQL tokenization */
+    const char *query = "SELECT * FROM table1;";
+    Parser parser;
+    parser_init(&parser, query);
+
+    printf("Tokens:\n");
+    for (;;) {
+        Token tok = parser_next_token(&parser);
+        if (tok.type == TOKEN_EOF)
+            break;
+        printf("  %d: '%.*s'\n", tok.type, (int)tok.length, tok.start);
+    }
 
     return 0;
 }
