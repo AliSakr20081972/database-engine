@@ -3,6 +3,14 @@
 #include <string.h>
 #include <strings.h>
 
+/*
+ * Simple SQL tokenizer implementation.
+ *
+ * The tokenizer is deliberately minimal and only understands a handful of
+ * keywords and symbols. It is used by the example program to demonstrate how a
+ * higher-level parser might iterate over an input query string.
+ */
+
 static bool is_keyword(const char *start, size_t len, const char *kw)
 {
     return strlen(kw) == len && strncasecmp(start, kw, len) == 0;

@@ -1,5 +1,13 @@
 #include "storage/page.h"
 
+/*
+ * Basic operations for managing fixed-size pages.
+ *
+ * The storage layer deals with raw 4KB pages. These helper functions
+ * initialize a page structure and convert between the in-memory representation
+ * and raw byte buffers used for I/O.
+ */
+
 /* Initialize a page with the specified identifier */
 void page_init(Page *page, PageID id)
 {
