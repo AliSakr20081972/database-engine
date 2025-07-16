@@ -1,38 +1,35 @@
-// Page.h
-#pragma once
+#ifndef STORAGE_PAGE_H
+#define STORAGE_PAGE_H
 
-#include <cstdint>
-#include <vector>
-#include <cstring>
-#include <stdexcept>
+#include <stdint.h>
+#include <stddef.h>
+#include <stdbool.h>
+#include <string.h>
 
-namespace alpha::storage {
+#define PAGE_SIZE 4096 /* 4KB fixed-size page */
 
-constexpr size_t PAGE_SIZE = 4096; // 4KB fixed-size page
+typedef uint64_t PageID;
 
-class Page {
-public:
-    using PageID = uint64_t;
+typedef struct Page {
+    PageID id;
+    bool dirty;
+    uint8_t buffer[PAGE_SIZE];
+} Page;
 
-    Page(PageID id);
+/* Initialize a page structure with the given identifier */
+void page_init(Page *page, PageID id);
 
-    // Accessors
-    PageID get_id() const;
-    const uint8_t* data() const;
-    uint8_t* data();
+/* Accessors */
+static inline PageID page_get_id(const Page *page) { return page->id; }
+static inline const uint8_t *page_data(const Page *page) { return page->buffer; }
+static inline uint8_t *page_data_mut(Page *page) { return page->buffer; }
 
-    // Metadata
-    bool is_dirty() const;
-    void mark_dirty(bool dirty);
+/* Metadata */
+static inline bool page_is_dirty(const Page *page) { return page->dirty; }
+static inline void page_mark_dirty(Page *page, bool dirty) { page->dirty = dirty; }
 
-    // Serialization
-    void from_bytes(const uint8_t* src);
-    void to_bytes(uint8_t* dest) const;
+/* Serialization */
+void page_from_bytes(Page *page, const uint8_t *src);
+void page_to_bytes(const Page *page, uint8_t *dest);
 
-private:
-    PageID id_;
-    bool dirty_;
-    uint8_t buffer_[PAGE_SIZE];
-};
-
-} // namespace alpha::storage
+#endif /* STORAGE_PAGE_H */
