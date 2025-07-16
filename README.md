@@ -1,2 +1,17 @@
 # database-engine
-This project is a custom-built database engine designed to efficiently handle data storage, retrieval, and management tasks. It provides a robust foundation for applications requiring scalable, secure, and high-performance database solutions.
+
+This project is an educational database engine written in C. It takes
+PostgreSQL's simple page based storage model as a reference. The code
+here is intentionally small and serves as a starting point for further
+development.
+
+## Building
+
+A simple Makefile is provided. Run `make` to build the demo executable:
+
+```sh
+make
+./db
+```
+
+The executable demonstrates basic usage of the `Page` structure.
