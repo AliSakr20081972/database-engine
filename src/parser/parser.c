@@ -77,6 +77,8 @@ Token parser_next_token(Parser *parser)
                 token.type = TOKEN_KEYWORD_INTO;
             else if (is_keyword(token.start, token.length, "VALUES"))
                 token.type = TOKEN_KEYWORD_VALUES;
+            else if (is_keyword(token.start, token.length, "FROM"))
+                token.type = TOKEN_KEYWORD_FROM;
             else
                 token.type = TOKEN_IDENTIFIER;
             return token;

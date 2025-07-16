@@ -31,6 +31,7 @@ typedef enum TokenType {
     TOKEN_KEYWORD_INSERT,
     TOKEN_KEYWORD_INTO,
     TOKEN_KEYWORD_VALUES,
+    TOKEN_KEYWORD_FROM,
     TOKEN_UNKNOWN
 } TokenType;
 

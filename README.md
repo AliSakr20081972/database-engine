@@ -17,5 +17,6 @@ make
 ./db
 ```
 
-The executable demonstrates basic usage of the `Page` structure and a very
-simple SQL tokenizer found in `parser/`.
+The executable demonstrates usage of the storage layer, a small SQL tokenizer
+and newly added components including a minimal query planner and executor,
+a thread pool and a simple user authentication module.

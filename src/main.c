@@ -1,6 +1,17 @@
 #include <stdio.h>
 #include "storage/page.h"
 #include "parser/parser.h"
+#include "planner/planner.h"
+#include "executor/executor.h"
+#include "thread/thread_pool.h"
+#include "security/user.h"
+
+typedef struct { Plan plan; Table *table; } ExecArg;
+static void exec_task(void *arg)
+{
+    ExecArg *e = (ExecArg*)arg;
+    executor_execute(&e->plan, e->table);
+}
 
 /*
  * Entry point demonstrating usage of the storage and parser modules.
@@ -39,6 +50,42 @@ int main(void)
             break;
         printf("  %d: '%.*s'\n", tok.type, (int)tok.length, tok.start);
     }
+
+    /* Demo: planner and executor */
+    Table table;
+    table_init(&table, "table1");
+
+    Plan plan;
+    const char *insert_q = "INSERT INTO table1 VALUES ('abc');";
+    if (planner_plan(insert_q, &plan))
+        executor_execute(&plan, &table);
+
+    const char *select_q = "SELECT * FROM table1;";
+    if (planner_plan(select_q, &plan))
+        executor_execute(&plan, &table);
+
+    /* Demo: user security */
+    User user;
+    user_create(&user, "alice", "secret");
+    printf("Auth success: %d\n", user_authenticate(&user, "alice", "secret"));
+
+    /* Demo: thread pool executing two inserts */
+    ThreadPool pool;
+    thread_pool_init(&pool, 2);
+
+    Plan p1, p2;
+    planner_plan("INSERT INTO table1 VALUES ('thread1');", &p1);
+    planner_plan("INSERT INTO table1 VALUES ('thread2');", &p2);
+
+    ExecArg a1 = { p1, &table };
+    ExecArg a2 = { p2, &table };
+
+    thread_pool_submit(&pool, exec_task, &a1);
+    thread_pool_submit(&pool, exec_task, &a2);
+    thread_pool_shutdown(&pool);
+
+    if (planner_plan(select_q, &plan))
+        executor_execute(&plan, &table);
 
     return 0;
 }
