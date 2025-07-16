@@ -1,7 +1,7 @@
 CC ?= gcc
 CFLAGS ?= -Wall -Wextra -std=c11 -Iinclude
 
-SRC := $(wildcard src/*.c src/storage/*.c)
+SRC := $(wildcard src/*.c src/storage/*.c src/parser/*.c)
 OBJ := $(SRC:.c=.o)
 TARGET := db
 
