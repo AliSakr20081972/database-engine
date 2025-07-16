@@ -2,6 +2,14 @@
 #include "storage/page.h"
 #include "parser/parser.h"
 
+/*
+ * Entry point demonstrating usage of the storage and parser modules.
+ *
+ * The program creates a single page, writes a string into it and prints the
+ * serialized contents. It then tokenizes a small SQL query and prints each
+ * token to STDOUT.
+ */
+
 int main(void)
 {
     Page page;

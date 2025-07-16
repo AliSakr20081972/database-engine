@@ -1,6 +1,16 @@
 #ifndef STORAGE_PAGE_H
 #define STORAGE_PAGE_H
 
+/**
+ * @file page.h
+ * @brief Fixed-size disk page abstraction used by the storage layer.
+ *
+ * A page represents a 4KB block of data on disk identified by a 64-bit
+ * PageID. Pages track a dirty flag so that higher layers can decide whether
+ * they need to be persisted back to disk. Helper functions are provided for
+ * initialization and serialization to and from raw byte buffers.
+ */
+
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>

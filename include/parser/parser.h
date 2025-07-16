@@ -1,6 +1,14 @@
 #ifndef PARSER_PARSER_H
 #define PARSER_PARSER_H
 
+/**
+ * @file parser.h
+ * @brief Minimal tokenizer for a subset of SQL.
+ *
+ * The parser module exposes a very small tokenizer used by the demo program
+ * to iterate over keywords, identifiers and punctuation in an input string.
+ */
+
 #include <stddef.h>
 #include <stdbool.h>
 
