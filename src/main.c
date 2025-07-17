@@ -72,17 +72,26 @@ int main(void)
 
     /* Demo: thread pool executing two inserts */
     ThreadPool pool;
-    thread_pool_init(&pool, 2);
+    if (!thread_pool_init(&pool, 2)) {
+        fprintf(stderr, "Failed to initialize thread pool\n");
+        return 1;
+    }
 
     Plan p1, p2;
-    planner_plan("INSERT INTO table1 VALUES ('thread1');", &p1);
-    planner_plan("INSERT INTO table1 VALUES ('thread2');", &p2);
+    if (!planner_plan("INSERT INTO table1 VALUES ('thread1');", &p1) ||
+        !planner_plan("INSERT INTO table1 VALUES ('thread2');", &p2)) {
+        fprintf(stderr, "Failed to plan insert statements\n");
+        thread_pool_shutdown(&pool);
+        return 1;
+    }
 
     ExecArg a1 = { p1, &table };
     ExecArg a2 = { p2, &table };
 
-    thread_pool_submit(&pool, exec_task, &a1);
-    thread_pool_submit(&pool, exec_task, &a2);
+    if (!thread_pool_submit(&pool, exec_task, &a1))
+        fprintf(stderr, "Failed to submit task 1\n");
+    if (!thread_pool_submit(&pool, exec_task, &a2))
+        fprintf(stderr, "Failed to submit task 2\n");
     thread_pool_shutdown(&pool);
 
     if (planner_plan(select_q, &plan))
