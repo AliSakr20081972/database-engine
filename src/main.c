@@ -3,6 +3,7 @@
 #include "parser/parser.h"
 #include "planner/planner.h"
 #include "executor/executor.h"
+#include "cli/cli.h"
 #include "thread/thread_pool.h"
 #include "security/user.h"
 
@@ -86,6 +87,9 @@ int main(void)
 
     if (planner_plan(select_q, &plan))
         executor_execute(&plan, &table);
+
+    /* Start interactive CLI */
+    cli_run(&table);
 
     return 0;
 }

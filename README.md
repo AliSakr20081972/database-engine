@@ -21,6 +21,11 @@ The executable demonstrates usage of the storage layer, a small SQL tokenizer
 and newly added components including a minimal query planner and executor,
 a thread pool and a simple user authentication module.
 
+After these examples run, the program starts a very small interactive
+command line interface. You can enter SQL statements such as
+`SELECT * FROM table1;` or `INSERT INTO table1 VALUES ('abc');` and type
+`quit` to exit.
+
 ## Running with Docker
 
 Build the Docker image and run the demo executable inside a container:

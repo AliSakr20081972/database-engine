@@ -29,4 +29,5 @@ make
 
 The program prints the contents of a demo page, tokenizes a query and then
 shows simple planning, execution, thread pool usage and authentication
-examples.
+examples. After these demonstrations, an interactive command line interface
+starts so you can experiment with your own SQL statements. Type `quit` to exit.
