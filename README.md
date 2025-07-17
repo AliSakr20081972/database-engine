@@ -19,7 +19,8 @@ make
 
 The executable demonstrates usage of the storage layer, a small SQL tokenizer
 and newly added components including a minimal query planner and executor,
-a thread pool and a simple user authentication module.
+a thread pool and a simple user authentication module. Basic error handling
+now reports failures such as thread pool initialization problems to STDERR.
 
 After these examples run, the program starts a very small interactive
 command line interface. You can enter SQL statements such as
