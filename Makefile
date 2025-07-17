@@ -1,7 +1,7 @@
 CC ?= gcc
 CFLAGS ?= -Wall -Wextra -std=c11 -Iinclude -pthread
 
-SRC := $(wildcard src/*.c src/storage/*.c src/parser/*.c src/planner/*.c src/executor/*.c src/thread/*.c src/security/*.c)
+SRC := $(wildcard src/*.c src/storage/*.c src/parser/*.c src/planner/*.c src/executor/*.c src/cli/*.c src/thread/*.c src/security/*.c)
 OBJ := $(SRC:.c=.o)
 TARGET := db
 
