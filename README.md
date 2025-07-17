@@ -33,5 +33,5 @@ Build the Docker image and run the demo executable inside a container:
 
 ```sh
 docker build -t database-engine .
-docker run --rm database-engine
+docker run -it --rm database-engine
 ```
