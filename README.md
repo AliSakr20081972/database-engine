@@ -20,3 +20,12 @@ make
 The executable demonstrates usage of the storage layer, a small SQL tokenizer
 and newly added components including a minimal query planner and executor,
 a thread pool and a simple user authentication module.
+
+## Running with Docker
+
+Build the Docker image and run the demo executable inside a container:
+
+```sh
+docker build -t database-engine .
+docker run --rm database-engine
+```
