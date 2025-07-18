@@ -35,3 +35,14 @@ Build the Docker image and run the demo executable inside a container:
 docker build -t database-engine .
 docker run -it --rm database-engine
 ```
+
+### Running with the Web UI
+
+You can also build and run a simple Flask based UI using `docker compose`:
+
+```sh
+docker compose up --build
+```
+
+The database service listens on port `5432` while the UI is available on
+`http://localhost:5000`.
