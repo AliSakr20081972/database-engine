@@ -1,0 +1,12 @@
+version: '3'
+services:
+  database:
+    build: .
+    ports:
+      - "5432:5432"
+  ui:
+    build: ./ui
+    ports:
+      - "5000:5000"
+    depends_on:
+      - database
